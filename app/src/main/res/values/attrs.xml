@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MButton">
+        <attr name="backColor" format="color" />
+        <attr name="cornerRadius" format="dimension" />
+        <attr name="shadowRadius" format="dimension" />
+        <attr name="shadowDx" format="dimension" />
+        <attr name="shadowDy" format="dimension" />
+        <attr name="shadowColor" format="color" />
+        <attr name = "text" format = "string" />
+        <attr name="fontSize" format="dimension" />
+        <attr name="fontColor" format="color" />
+        <attr name = "fontWeight" format = "integer" />
+        <attr name="fontType" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="ProfileButton">
+        <attr name="frameImage" format="reference" />
+        <attr name="contentImage" format="reference" />
+        <attr name="contentScale" format="float" />
+        <attr name = "backgroundColor" format="color" />
+    </declare-styleable>
+</resources>
