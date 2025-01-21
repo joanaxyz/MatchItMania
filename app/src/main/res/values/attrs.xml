@@ -12,6 +12,10 @@
         <attr name="fontColor" format="color" />
         <attr name = "fontWeight" format = "integer" />
         <attr name="fontType" format="reference" />
+        <attr name ="backWidthScale" format = "float"/>
+        <attr name ="backHeightScale" format = "float"/>
+        <attr name ="backHorizontalOffset" format = "float"/>
+        <attr name ="backVerticalOffset" format = "float"/>
     </declare-styleable>
     <declare-styleable name="ProfileButton">
         <attr name="frameImage" format="reference" />

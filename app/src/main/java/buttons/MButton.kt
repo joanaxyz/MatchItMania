@@ -4,13 +4,10 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.Typeface
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
-import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.matchitmania.R
@@ -19,31 +16,36 @@ class MButton @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+) : androidx.appcompat.widget.AppCompatImageButton(context, attrs, defStyleAttr) {
 
-    private val framePaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val backPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val shadowPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val rect = RectF(0f, 0f, 0f, 0f)
-    private val foregroundRect = Rect()
-    private val paint = Paint().apply{
-        isAntiAlias = true
-    }
+
     private var backColor = ContextCompat.getColor(context, android.R.color.holo_blue_light)
     private var cornerRadius = 20f
     private var shadowRadius = 8f
     private var shadowDx = 0f
     private var shadowDy = 4f
     private var shadowColor = 0x29000000
-    private var pendingForeground: android.graphics.drawable.Drawable? = null
-    private var text :String? = null
+    private var backHeightScale = 1f
+    private var backWidthScale = 1f
+
+    // Vertical and Horizontal offset for background position (between 0 and 1)
+    private var backVerticalOffset: Float = 0f
+    private var backHorizontalOffset: Float = 0f
+
+    // Text properties
+    private var text: String? = null
     private var fontSize: Float = 16f
     private var fontColor: Int = Color.BLACK
     private var fontWeight: Int = 0
     private var fontType: Int = 0
+
     init {
-        isClickable = true
-        isFocusable = true
         setLayerType(LAYER_TYPE_SOFTWARE, null)
+        scaleType = ScaleType.FIT_CENTER // Maintain image aspect ratio
 
         attrs?.let { attributeSet ->
             val typedArray = context.obtainStyledAttributes(
@@ -75,9 +77,24 @@ class MButton @JvmOverloads constructor(
                     R.styleable.MButton_shadowColor,
                     shadowColor
                 )
-                text = typedArray.getString(
-                    R.styleable.MButton_text
+                backWidthScale = typedArray.getFloat(
+                    R.styleable.MButton_backWidthScale,
+                    backWidthScale
                 )
+                backHeightScale = typedArray.getFloat(
+                    R.styleable.MButton_backHeightScale,
+                    backHeightScale
+                )
+                backHorizontalOffset = typedArray.getFloat(
+                    R.styleable.MButton_backHorizontalOffset,
+                    backHorizontalOffset
+                )
+                backVerticalOffset = typedArray.getFloat(
+                    R.styleable.MButton_backVerticalOffset,
+                    backVerticalOffset
+                )
+                // Text attributes
+                text = typedArray.getString(R.styleable.MButton_text)
                 fontSize = typedArray.getDimension(R.styleable.MButton_fontSize, 16f)
                 fontColor = typedArray.getColor(R.styleable.MButton_fontColor, Color.BLACK)
                 fontWeight = typedArray.getInt(R.styleable.MButton_fontWeight, 0)
@@ -91,7 +108,7 @@ class MButton @JvmOverloads constructor(
     }
 
     private fun setupPaints() {
-        framePaint.apply {
+        backPaint.apply {
             color = backColor
             style = Paint.Style.FILL
         }
@@ -102,17 +119,17 @@ class MButton @JvmOverloads constructor(
             setShadowLayer(shadowRadius, shadowDx, shadowDy, shadowColor)
         }
 
-        paint.apply{
+        textPaint.apply {
             color = fontColor
             textSize = fontSize
-            typeface = if(fontWeight == 1) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
             textAlign = Paint.Align.CENTER
+            typeface = if(fontWeight == 1) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
             if (fontType != 0) {
                 try {
                     val typeface = ResourcesCompat.getFont(context, fontType)
                     setTypeface(typeface)
                 } catch (e: Exception) {
-                    e.printStackTrace() // Handle missing font gracefully
+                    e.printStackTrace()
                 }
             }
         }
@@ -122,63 +139,34 @@ class MButton @JvmOverloads constructor(
         super.onSizeChanged(w, h, oldw, oldh)
         val padding = shadowRadius.toInt() * 2
 
+        val newWidth = backWidthScale * width.toFloat()
+        val newHeight = backHeightScale * height.toFloat()
+
+        // Apply vertical and horizontal offsets
+        val verticalOffset = backVerticalOffset * (h - padding * 2).toFloat()
+        val horizontalOffset = backHorizontalOffset * (w - padding * 2).toFloat()
+
         rect.set(
-            padding.toFloat(),
-            padding.toFloat(),
-            (w - padding).toFloat(),
-            (h - padding).toFloat()
+            padding.toFloat() + horizontalOffset,  // Horizontal offset applied here
+            verticalOffset + padding.toFloat(),    // Vertical offset applied here
+            newWidth - padding + horizontalOffset,
+            newHeight + verticalOffset - padding
         )
-
-        pendingForeground?.let {
-            super.setForeground(it)
-            pendingForeground = null
-        }
-
-        updateForegroundBounds()
-    }
-
-    private fun updateForegroundBounds() {
-        if (rect.width() <= 0 || rect.height() <= 0) return
-
-        foreground?.let {
-            // Center the foreground in the available space
-            val frameWidth = rect.width()
-            val frameHeight = rect.height()
-
-            // Use the smaller dimension to maintain aspect ratio
-            val size = frameWidth.coerceAtMost(frameHeight).toInt()
-
-            val horizontalPadding = ((frameWidth - size) / 2).toInt()
-            val verticalPadding = ((frameHeight - size) / 2).toInt()
-
-            foregroundRect.set(
-                rect.left.toInt() + horizontalPadding,
-                rect.top.toInt() + verticalPadding,
-                rect.left.toInt() + horizontalPadding + size,
-                rect.top.toInt() + verticalPadding + size
-            )
-
-            it.bounds = foregroundRect
-        }
     }
 
     override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
+        // Draw background with shadow and rounded corners
         canvas.drawRoundRect(rect, cornerRadius, cornerRadius, shadowPaint)
-        canvas.drawRoundRect(rect, cornerRadius, cornerRadius, framePaint)
-        text?.let{
-            var x = width/2f
-            var y = height / 2f - (paint.descent() + paint.ascent()) /2f
-            canvas.drawText(it, x, y, paint)
-        }
-    }
+        canvas.drawRoundRect(rect, cornerRadius, cornerRadius, backPaint)
 
-    override fun setForeground(foreground: android.graphics.drawable.Drawable?) {
-        if (width == 0 || height == 0) {
-            pendingForeground = foreground
-        } else {
-            super.setForeground(foreground)
-            updateForegroundBounds()
+        // Draw the image content
+        super.onDraw(canvas)
+
+        // Draw text overlay
+        text?.let {
+            val x = width / 2f
+            val y = height / 2f - (textPaint.descent() + textPaint.ascent()) / 2f
+            canvas.drawText(it, x, y, textPaint)
         }
     }
 
@@ -192,67 +180,54 @@ class MButton @JvmOverloads constructor(
                     .setDuration(100)
                     .start()
                 invalidate()
-                return true
             }
-            MotionEvent.ACTION_UP -> {
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 alpha = 1.0f
                 animate()
                     .scaleX(1f)
                     .scaleY(1f)
                     .setDuration(100)
                     .start()
-                performClick()
+                if (event.action == MotionEvent.ACTION_UP) {
+                    performClick()
+                }
                 invalidate()
-                return true
-            }
-            MotionEvent.ACTION_CANCEL -> {
-                alpha = 1.0f
-                animate()
-                    .scaleX(1f)
-                    .scaleY(1f)
-                    .setDuration(100)
-                    .start()
-                invalidate()
-                return true
             }
         }
         return super.onTouchEvent(event)
     }
 
-    override fun performClick(): Boolean {
-        Log.d("buttons.ProfileButton", "Button clicked")
-        return super.performClick()
-    }
-
     fun setbackColor(color: Int) {
         backColor = color
-        framePaint.color = color
+        backPaint.color = color
         invalidate()
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        // Get the requested size mode and size value for width and height
-        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
-        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
-        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
-        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
+    fun setText(newText: String?) {
+        text = newText
+        invalidate()
+    }
 
-        // Add padding for shadow
-        val padding = (shadowRadius * 2).toInt()
+    fun setFontSize(size: Float) {
+        fontSize = size
+        textPaint.textSize = size
+        invalidate()
+    }
 
-        // Calculate the actual width and height based on the measure specs
-        val width = when (widthMode) {
-            MeasureSpec.EXACTLY -> widthSize
-            MeasureSpec.AT_MOST -> widthSize.coerceAtMost(heightSize)
-            else -> suggestedMinimumWidth
-        }
+    fun setFontColor(color: Int) {
+        fontColor = color
+        textPaint.color = color
+        invalidate()
+    }
 
-        val height = when (heightMode) {
-            MeasureSpec.EXACTLY -> heightSize
-            MeasureSpec.AT_MOST -> heightSize.coerceAtMost(widthSize)
-            else -> suggestedMinimumHeight
-        }
+    // Setters for horizontal and vertical offsets
+    fun setBackVerticalOffset(offset: Float) {
+        backVerticalOffset = offset.coerceIn(0f, 1f)
+        invalidate()
+    }
 
-        setMeasuredDimension(width + padding * 2, height + padding * 2)
+    fun setBackHorizontalOffset(offset: Float) {
+        backHorizontalOffset = offset.coerceIn(0f, 1f)
+        invalidate()
     }
 }
