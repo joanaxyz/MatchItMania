@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MatchItMania</string>
+    <string name="play_button">Play</string>
+    <string name="profile_button">Profile</string>
+    <string name="settings_button">Settings</string>
+
 </resources>
