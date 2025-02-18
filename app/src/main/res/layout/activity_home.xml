@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/home"
     android:textAlignment="center"
-    tools:context=".Home">
+    tools:context=".HomeActivity">
 
     <!-- Top Bar (Settings & Profile Buttons) -->
     <RelativeLayout
