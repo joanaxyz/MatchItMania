@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -9,27 +9,42 @@
     android:textAlignment="center"
     tools:context=".Home">
 
-    <buttons.MButton
-        android:id="@+id/settingsButton"
-        android:layout_width="65dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="@string/settings_button"
-        android:foreground="@drawable/settings"
-        android:foregroundGravity="center|fill"
-        app:backColor="#00000000"
-        app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.922"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shadowColor="#00000000" />
+    <!-- Top Bar (Settings & Profile Buttons) -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
+        <buttons.ProfileButton
+            android:id="@+id/profileButton"
+            android:layout_width="92dp"
+            android:layout_height="94dp"
+            android:contentDescription="@string/profile_button"
+            app:backgroundColor="#E03001"
+            app:contentImage="@drawable/avatar1"
+            app:contentScale="0.7"
+            app:frameImage="@drawable/frame2"
+            android:layout_alignParentStart="true" />
+
+        <buttons.MButton
+            android:id="@+id/settingsButton"
+            android:layout_width="65dp"
+            android:layout_height="68dp"
+            android:contentDescription="@string/settings_button"
+            android:foreground="@drawable/settings"
+            android:foregroundGravity="center|fill"
+            app:backColor="#00000000"
+            app:cornerRadius="10dp"
+            app:shadowColor="#00000000"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <!-- Play Button in the Center -->
     <buttons.MButton
         android:id="@+id/playButton"
         android:layout_width="278dp"
         android:layout_height="90dp"
-        android:layout_marginTop="340dp"
+        android:layout_centerInParent="true"
         android:contentDescription="@string/play_button"
         android:textAlignment="center"
         app:backColor="#F9C80E"
@@ -38,49 +53,33 @@
         app:fontSize="30dp"
         app:fontType="@font/rubik_mono_one"
         app:fontWeight="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:shadowColor="#FF5E99"
         app:shadowRadius="10dp"
         app:text="PLAY" />
 
-    <buttons.ProfileButton
-        android:layout_width="92dp"
-        android:layout_height="94dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="@string/profile_button"
-        app:backgroundColor="#E03001"
-        app:contentImage="@drawable/avatar1"
-        app:contentScale="0.7"
-        app:frameImage="@drawable/frame2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.059"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- Bottom Bar -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true" >
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="411dp"
-        android:layout_height="78dp"
-        android:background="#2B5460"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:background="#2B5460"
+            android:layout_gravity="bottom"/>
 
-    <buttons.MButton
-        android:id="@+id/homeButton"
-        android:layout_width="143dp"
-        android:layout_height="130dp"
-        android:src="@drawable/homebutton"
-        android:contentDescription="@string/home_button"
-        app:backHeightScale="0.8"
-        app:backVerticalOffset="0.3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playButton"
-        app:layout_constraintVertical_bias="1.0" />
+        <buttons.MButton
+            android:id="@+id/homeButton"
+            android:layout_width="143dp"
+            android:layout_height="130dp"
+            android:src="@drawable/homebutton"
+            android:contentDescription="@string/home_button"
+            app:backHeightScale="0.8"
+            app:backVerticalOffset="0.3"
+            android:layout_gravity="center|bottom"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
+</RelativeLayout>

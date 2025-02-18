@@ -170,32 +170,32 @@ class MButton @JvmOverloads constructor(
         }
     }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        when (event.action) {
-            MotionEvent.ACTION_DOWN -> {
-                alpha = 0.8f
-                animate()
-                    .scaleX(0.95f)
-                    .scaleY(0.95f)
-                    .setDuration(100)
-                    .start()
-                invalidate()
-            }
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                alpha = 1.0f
-                animate()
-                    .scaleX(1f)
-                    .scaleY(1f)
-                    .setDuration(100)
-                    .start()
-                if (event.action == MotionEvent.ACTION_UP) {
-                    performClick()
-                }
-                invalidate()
-            }
-        }
-        return super.onTouchEvent(event)
-    }
+//    override fun onTouchEvent(event: MotionEvent): Boolean {
+//        when (event.action) {
+//            MotionEvent.ACTION_DOWN -> {
+//                alpha = 0.8f
+//                animate()
+//                    .scaleX(0.95f)
+//                    .scaleY(0.95f)
+//                    .setDuration(100)
+//                    .start()
+//                invalidate()
+//            }
+//            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+//                alpha = 1.0f
+//                animate()
+//                    .scaleX(1f)
+//                    .scaleY(1f)
+//                    .setDuration(100)
+//                    .start()
+//                if (event.action == MotionEvent.ACTION_UP) {
+//                    performClick()
+//                }
+//                invalidate()
+//            }
+//        }
+//        return super.onTouchEvent(event)
+//    }
 
     fun setbackColor(color: Int) {
         backColor = color
