@@ -16,6 +16,9 @@
         <attr name ="backHeightScale" format = "float"/>
         <attr name ="backHorizontalOffset" format = "float"/>
         <attr name ="backVerticalOffset" format = "float"/>
+        <attr name="borderColor" format="color"/>
+        <attr name="borderWidth" format="dimension"/>
+        <attr name="foregroundScale" format="float"/>
     </declare-styleable>
     <declare-styleable name="ProfileButton">
         <attr name="frameImage" format="reference" />

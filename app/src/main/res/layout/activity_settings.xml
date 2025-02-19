@@ -40,6 +40,16 @@
 
         </TextView>
 
+        <buttons.MButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:foreground="@drawable/exit"
+            app:backColor="@color/MBrown"
+            app:cornerRadius="90dp"
+            app:foregroundScale="0.8"
+            app:borderWidth="2dp"
+
+            />
     </FrameLayout>
 
 </LinearLayout>

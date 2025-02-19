@@ -20,6 +20,7 @@ class MButton @JvmOverloads constructor(
     private val backPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val shadowPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val rect = RectF(0f, 0f, 0f, 0f)
 
     private var backColor = ContextCompat.getColor(context, android.R.color.holo_blue_light)
@@ -30,6 +31,13 @@ class MButton @JvmOverloads constructor(
     private var shadowColor = 0x29000000
     private var backHeightScale = 1f
     private var backWidthScale = 1f
+
+    // Border properties
+    private var borderColor = Color.BLACK
+    private var borderWidth = 0f
+
+    // Foreground image size control
+    private var foregroundScale = 1f
 
     // Vertical and Horizontal offset for background position (between 0 and 1)
     private var backVerticalOffset: Float = 0f
@@ -44,7 +52,7 @@ class MButton @JvmOverloads constructor(
 
     init {
         setLayerType(LAYER_TYPE_SOFTWARE, null)
-        scaleType = ScaleType.FIT_CENTER // Maintain image aspect ratio
+        scaleType = ScaleType.FIT_CENTER
 
         attrs?.let { attributeSet ->
             val typedArray = context.obtainStyledAttributes(
@@ -92,6 +100,20 @@ class MButton @JvmOverloads constructor(
                     R.styleable.MButton_backVerticalOffset,
                     backVerticalOffset
                 )
+                // Border attributes
+                borderColor = typedArray.getColor(
+                    R.styleable.MButton_borderColor,
+                    borderColor
+                )
+                borderWidth = typedArray.getDimension(
+                    R.styleable.MButton_borderWidth,
+                    borderWidth
+                )
+                // Foreground scale
+                foregroundScale = typedArray.getFloat(
+                    R.styleable.MButton_foregroundScale,
+                    foregroundScale
+                )
                 // Text attributes
                 text = typedArray.getString(R.styleable.MButton_text)
                 fontSize = typedArray.getDimension(R.styleable.MButton_fontSize, 16f)
@@ -118,6 +140,12 @@ class MButton @JvmOverloads constructor(
             setShadowLayer(shadowRadius, shadowDx, shadowDy, shadowColor)
         }
 
+        borderPaint.apply {
+            color = borderColor
+            style = Paint.Style.STROKE
+            strokeWidth = borderWidth
+        }
+
         textPaint.apply {
             color = fontColor
             textSize = fontSize
@@ -141,13 +169,12 @@ class MButton @JvmOverloads constructor(
         val newWidth = backWidthScale * width.toFloat()
         val newHeight = backHeightScale * height.toFloat()
 
-        // Apply vertical and horizontal offsets
         val verticalOffset = backVerticalOffset * (h - padding * 2).toFloat()
         val horizontalOffset = backHorizontalOffset * (w - padding * 2).toFloat()
 
         rect.set(
-            padding.toFloat() + horizontalOffset,  // Horizontal offset applied here
-            verticalOffset + padding.toFloat(),    // Vertical offset applied here
+            padding.toFloat() + horizontalOffset,
+            verticalOffset + padding.toFloat(),
             newWidth - padding + horizontalOffset,
             newHeight + verticalOffset - padding
         )
@@ -158,8 +185,26 @@ class MButton @JvmOverloads constructor(
         canvas.drawRoundRect(rect, cornerRadius, cornerRadius, shadowPaint)
         canvas.drawRoundRect(rect, cornerRadius, cornerRadius, backPaint)
 
+        // Draw border if width > 0
+        if (borderWidth > 0) {
+            canvas.drawRoundRect(rect, cornerRadius, cornerRadius, borderPaint)
+        }
+
+        // Save canvas state before scaling foreground
+        canvas.save()
+
+        // Scale foreground image
+        if (foregroundScale != 1f) {
+            val centerX = width / 2f
+            val centerY = height / 2f
+            canvas.scale(foregroundScale, foregroundScale, centerX, centerY)
+        }
+
         // Draw the image content
         super.onDraw(canvas)
+
+        // Restore canvas state
+        canvas.restore()
 
         // Draw text overlay
         text?.let {
@@ -169,33 +214,25 @@ class MButton @JvmOverloads constructor(
         }
     }
 
-//    override fun onTouchEvent(event: MotionEvent): Boolean {
-//        when (event.action) {
-//            MotionEvent.ACTION_DOWN -> {
-//                alpha = 0.8f
-//                animate()
-//                    .scaleX(0.95f)
-//                    .scaleY(0.95f)
-//                    .setDuration(100)
-//                    .start()
-//                invalidate()
-//            }
-//            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-//                alpha = 1.0f
-//                animate()
-//                    .scaleX(1f)
-//                    .scaleY(1f)
-//                    .setDuration(100)
-//                    .start()
-//                if (event.action == MotionEvent.ACTION_UP) {
-//                    performClick()
-//                }
-//                invalidate()
-//            }
-//        }
-//        return super.onTouchEvent(event)
-//    }
+    // Setter methods for the new properties
+    fun setBorderColor(color: Int) {
+        borderColor = color
+        borderPaint.color = color
+        invalidate()
+    }
 
+    fun setBorderWidth(width: Float) {
+        borderWidth = width
+        borderPaint.strokeWidth = width
+        invalidate()
+    }
+
+    fun setForegroundScale(scale: Float) {
+        foregroundScale = scale
+        invalidate()
+    }
+
+    // Existing setter methods...
     fun setbackColor(color: Int) {
         backColor = color
         backPaint.color = color
@@ -219,7 +256,6 @@ class MButton @JvmOverloads constructor(
         invalidate()
     }
 
-    // Setters for horizontal and vertical offsets
     fun setBackVerticalOffset(offset: Float) {
         backVerticalOffset = offset.coerceIn(0f, 1f)
         invalidate()
