@@ -75,9 +75,6 @@ class ProfileButton @JvmOverloads constructor(
     }
 
     private fun updateContentLayout() {
-        val parentWidth = width
-        val parentHeight = height
-
         // Scale both content image and background
         contentImageView.apply {
             scaleX = contentScale

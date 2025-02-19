@@ -47,13 +47,13 @@
         android:layout_centerInParent="true"
         android:contentDescription="@string/play_button"
         android:textAlignment="center"
-        app:backColor="#F9C80E"
+        app:backColor="@color/MYellow"
         app:cornerRadius="50dp"
         app:fontColor="#FFFFFF"
         app:fontSize="30dp"
         app:fontType="@font/rubik_mono_one"
         app:fontWeight="1"
-        app:shadowColor="#FF5E99"
+        app:shadowColor="@color/MPink"
         app:shadowRadius="10dp"
         app:text="PLAY" />
 
@@ -64,7 +64,7 @@
         android:layout_alignParentBottom="true" >
 
         <View
-            android:id="@+id/view2"
+            android:id="@+id/HorizontalB"
             android:layout_width="match_parent"
             android:layout_height="78dp"
             android:background="#2B5460"
@@ -78,6 +78,7 @@
             android:contentDescription="@string/home_button"
             app:backHeightScale="0.8"
             app:backVerticalOffset="0.3"
+            app:backColor="@color/MBlue"
             android:layout_gravity="center|bottom"/>
 
     </FrameLayout>

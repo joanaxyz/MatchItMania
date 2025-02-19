@@ -23,4 +23,9 @@
         <attr name="contentScale" format="float" />
         <attr name = "backgroundColor" format="color" />
     </declare-styleable>
+    <declare-styleable name="RoundedBackground">
+        <attr name="startColor" format="color" />
+        <attr name="endColor" format="color" />
+        <attr name="strokeColor" format="color" />
+    </declare-styleable>
 </resources>
