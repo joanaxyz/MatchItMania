@@ -12,7 +12,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp" >
+        android:layout_height="80dp" >
         <views.MTextView
             android:id="@+id/tvSettings"
             android:layout_width="match_parent"
@@ -26,8 +26,6 @@
             app:gradientDirection="topToBottom"
             app:startColor="@color/MGreen"
             app:endColor="@color/MBluishGreen"
-            app:borderColor="@color/MBrown"
-            app:borderWidth="5dp"
             >
         </views.MTextView>
 
@@ -46,19 +44,25 @@
             app:cornerRadius="90dp"
             app:imageScale="0.8" />
     </FrameLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_gravity="center_vertical"
+        android:background="@color/MBrown"
+        android:layout_marginBottom="20dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="190dp"
-        android:background="@drawable/gb_rounded_rect"
+        android:background="@drawable/bg_rounded_rect"
         android:orientation="horizontal">
         <views.MButton
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="50dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="30dp"
             app:imageScale="0.9"
-            app:backColor="@color/MBlue"
+            app:backColor="#4189A6"
             app:imageBackground="@drawable/avatar1"
             app:borderWidth="10dp"
             app:cornerRadius="10dp"
@@ -81,18 +85,20 @@
             android:layout_width="103dp"
             android:layout_height="95dp"
             android:layout_marginStart="35dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="55dp"
             android:fontFamily="@font/rubik_mono_one"
             android:gravity="center"
             android:text="@string/lvl"
-            android:textColor="@color/MWhite"
+            android:textColor="@color/MBWhite"
             android:textSize="15sp"
             android:shadowColor="@color/black"
             android:shadowRadius="10"
             app:cornerRadius="300dp"
             app:endColor="@color/MLightGreen"
             app:startColor="@color/MBluishGreen"
-            app:gradientDirection="topToBottom"/>
+            app:gradientDirection="topToBottom"
+            app:borderWidth="6dp"
+            app:borderColor="@color/MBrown"/>
     </LinearLayout>
     <FrameLayout
         android:layout_width="match_parent"
@@ -104,21 +110,24 @@
             android:layout_height="10dp"
             android:layout_gravity="center_vertical"
             android:background="@color/MBrown" />
+
         <views.MTextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/achievements"
-            android:textSize="30sp"
+            android:layout_height="66dp"
             android:layout_gravity="center"
+            android:fontFamily="@font/rubik_mono_one"
             android:padding="10dp"
-            android:textColor="@color/MWhite"
             android:shadowColor="@color/black"
             android:shadowRadius="10"
-            app:startColor="@color/MBluishGreen"
-            app:endColor="@color/MLightGreen"
+            android:text="@string/achievements"
+            android:gravity="center"
+            android:textColor="@color/MBWhite"
+            android:textSize="25sp"
             app:borderColor="@color/MBrown"
             app:borderWidth="5dp"
-            app:gradientDirection="topToBottom"/>
+            app:endColor="@color/MLightGreen"
+            app:gradientDirection="topToBottom"
+            app:startColor="@color/MBluishGreen" />
     </FrameLayout>
 
     <GridLayout
@@ -127,8 +136,10 @@
         android:rowCount="2"
         android:columnCount="2"
         android:padding="16dp"
-        android:background="@drawable/gb_rounded_rect"
-        android:layout_marginTop="30dp">
+        android:background="@drawable/bg_rounded_rect"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
 
         <!-- First Item -->
         <LinearLayout
@@ -156,7 +167,7 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="20dp"
-                android:background="@color/MBluishGreen"/>
+                android:background="@color/MBWhite"/>
         </LinearLayout>
 
 
@@ -184,7 +195,7 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="20dp"
-                android:background="@color/MBluishGreen"/>
+                android:background="@color/MBWhite"/>
         </LinearLayout>
 
         <LinearLayout
@@ -211,7 +222,7 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="20dp"
-                android:background="@color/MBluishGreen"/>
+                android:background="@color/MBWhite"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -239,7 +250,7 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="20dp"
-                android:background="@color/MBluishGreen"/>
+                android:background="@color/MBWhite"/>
         </LinearLayout>
     </GridLayout>
 </LinearLayout>
