@@ -5,7 +5,7 @@ package com.example.matchitmania
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import buttons.MButton
+import views.MButton
 
 class HomeActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <custom-views xmlns:android="http://schemas.android.com/apk/res/android">
     <custom-view
-        class="buttons.MButton"
+        class="views.MButton"
         name="MButton"
         description="A custom button"
         attributes="backColor, cornerRadius, shadowRadius, shadowDx, shadowDy, shadowColor, text, fontSize, fontColor, fontWeight, fontType, backgroundColor" />
-    <custom-view
-        class="buttons.ProfileButton"
-        name="Profile Button"
-        description="A custom layout for user profiles"
-        attributes="frameImage, contentImage, contentScale" />
 </custom-views>
 

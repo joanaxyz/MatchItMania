@@ -15,18 +15,18 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <buttons.ProfileButton
+        <views.MButton
             android:id="@+id/profileButton"
             android:layout_width="92dp"
             android:layout_height="94dp"
             android:contentDescription="@string/profile_button"
-            app:backgroundColor="#E03001"
-            app:contentImage="@drawable/avatar1"
-            app:contentScale="0.7"
-            app:frameImage="@drawable/frame2"
+            app:backColor="@color/MBlue"
+            app:borderColor="@color/MBrown"
+            app:borderWidth="10dp"
+            app:imageBackground="@drawable/avatar1"
+            app:imageScale="0.9"
             android:layout_alignParentStart="true" />
-
-        <buttons.MButton
+        <views.MButton
             android:id="@+id/settingsButton"
             android:layout_width="65dp"
             android:layout_height="68dp"
@@ -40,22 +40,22 @@
     </RelativeLayout>
 
     <!-- Play Button in the Center -->
-    <buttons.MButton
+    <views.MButton
         android:id="@+id/playButton"
-        android:layout_width="278dp"
-        android:layout_height="90dp"
+        android:layout_width="267dp"
+        android:layout_height="99dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/play_button"
         android:textAlignment="center"
         app:backColor="@color/MYellow"
         app:cornerRadius="50dp"
-        app:fontColor="#FFFFFF"
-        app:fontSize="30dp"
-        app:fontType="@font/rubik_mono_one"
+        app:fontFamily="@font/rubik_mono_one"
         app:fontWeight="1"
         app:shadowColor="@color/MPink"
-        app:shadowRadius="10dp"
-        app:text="PLAY" />
+        app:shadowRadius="20dp"
+        app:text="PLAY"
+        app:textColor="#FFFFFF"
+        app:textSize="30sp" />
 
     <!-- Bottom Bar -->
     <FrameLayout
@@ -70,14 +70,15 @@
             android:background="#2B5460"
             android:layout_gravity="bottom"/>
 
-        <buttons.MButton
+        <views.MButton
             android:id="@+id/homeButton"
             android:layout_width="143dp"
             android:layout_height="130dp"
-            android:src="@drawable/homebutton"
             android:contentDescription="@string/home_button"
+            app:imageBackground="@drawable/homebutton"
+            app:imageScale="1.1"
             app:backHeightScale="0.8"
-            app:backVerticalOffset="0.3"
+            app:backVerticalOffset="1"
             app:backColor="@color/MBlue"
             android:layout_gravity="center|bottom"/>
 
