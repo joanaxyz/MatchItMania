@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@drawable/indoors"
+    tools:context=".SettingsActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp" >
+        <views.MTextView
+            android:id="@+id/tvSettings"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="@string/profile"
+            android:textAlignment="center"
+            android:textColor="@color/MWhite"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:fontFamily="@font/rubik_mono_one"
+            app:gradientDirection="topToBottom"
+            app:startColor="@color/MGreen"
+            app:endColor="@color/MBluishGreen"
+            app:borderColor="@color/MBrown"
+            app:borderWidth="5dp"
+            >
+        </views.MTextView>
+
+        <views.MButton
+            android:id="@+id/btnExit"
+            android:layout_width="74dp"
+            android:layout_height="71dp"
+            android:padding="100dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            app:imageBackground="@drawable/exit"
+            app:backColor="@color/transparent"
+            app:borderColor="@color/MBrown"
+            app:borderWidth="5dp"
+            app:cornerRadius="90dp"
+            app:imageScale="0.8" />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:background="@drawable/gb_rounded_rect">
+        <views.MButton
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="20dp"
+            app:imageScale="0.9"
+            app:backColor="@color/MBlue"
+            app:imageBackground="@drawable/avatar1"
+            app:borderWidth="10dp"
+            app:cornerRadius="0dp"
+            app:borderColor="@color/MBrown"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
