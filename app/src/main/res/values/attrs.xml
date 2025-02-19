@@ -19,6 +19,7 @@
         <attr name="borderColor" format="color"/>
         <attr name="borderWidth" format="dimension"/>
         <attr name="foregroundScale" format="float"/>
+        <attr name="foregroundPadding" format="dimension"/>
     </declare-styleable>
     <declare-styleable name="ProfileButton">
         <attr name="frameImage" format="reference" />

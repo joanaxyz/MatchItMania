@@ -15,21 +15,76 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <LinearLayout
-            android:layout_width="333dp"
+            android:layout_width="329dp"
             android:layout_height="586dp"
-            android:background="@drawable/rounded_background"
             android:layout_gravity="center"
+            android:background="@drawable/rounded_background"
+            android:gravity="center"
             android:orientation="vertical">
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/music"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/rubik_mono_one"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                android:text="@string/music"
+                android:textColor="@color/MWhite"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/sound"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/rubik_mono_one"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                android:text="@string/sound"
+                android:textColor="@color/MWhite"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/vibration"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:fontFamily="@font/rubik_mono_one"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                android:text="@string/vibration"
+                android:textColor="@color/MWhite"
+                android:textSize="15sp" />
+
+            <buttons.MButton
+                android:id="@+id/playButton"
+                android:layout_width="261dp"
+                android:layout_height="101dp"
+                android:contentDescription="@string/log_in"
+                android:textAlignment="center"
+                app:backColor="@color/MLightGreen"
+                app:cornerRadius="50dp"
+                app:fontColor="#FFFFFF"
+                app:fontSize="30dp"
+                app:fontType="@font/rubik_mono_one"
+                app:fontWeight="1"
+                app:shadowColor="@color/MBluishGreen"
+                app:shadowRadius="10dp"
+                app:text="Log In" />
+
         </LinearLayout>
 
-
         <TextView
+            android:id="@+id/tvSettings"
             android:layout_width="200dp"
             android:layout_height="80dp"
             android:background="@drawable/rounded_background"
             android:layout_gravity="center|top"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             android:text="@string/settings"
             android:textAlignment="center"
             android:textColor="@color/MWhite"
@@ -41,15 +96,18 @@
         </TextView>
 
         <buttons.MButton
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="74dp"
+            android:layout_height="71dp"
             android:foreground="@drawable/exit"
-            app:backColor="@color/MBrown"
+            android:padding="100dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="20dp"
+            app:backColor="@color/transparent"
+            app:borderColor="@color/MBrown"
+            app:borderWidth="5dp"
             app:cornerRadius="90dp"
-            app:foregroundScale="0.8"
-            app:borderWidth="2dp"
-
-            />
+            app:foregroundScale="0.1" />
     </FrameLayout>
 
 </LinearLayout>
